@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 import cryptocurrencyThresholdEvaluatorApp from './reducers';
 import App from './components/App';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const store = createStore(cryptocurrencyThresholdEvaluatorApp);
 
