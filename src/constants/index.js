@@ -6,7 +6,7 @@ export const CURRENCY_PAIR_VALUES = [
   { value: 'Etherium (ETH)', key: 'ETH' },
   { value: 'Monero (XMR)', key: 'XMR' },
   { value: 'Stratis (STRAT)', key: 'STRAT' },
-  { value: 'Bitcoin Cash (BCH)', key: 'BCH' },
+  // { value: 'Bitcoin Cash (BCH)', key: 'BCH' },
 ];
 export const PERIOD_VALUES = [
   { value: '300', key: '300' },

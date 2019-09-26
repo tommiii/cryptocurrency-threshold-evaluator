@@ -7,40 +7,29 @@ const Table = ({
   const renderCols = () => <>
     <thead>
       <tr>
-        {_.map(cols, (col, index) => <th key={index} scope="col">{col}</th>)}
+        {_.map(cols, (col, indexCol) => <th key={indexCol} scope="col">{col}</th>)}
       </tr>
     </thead>
   </>;
+
   const renderValues = () => <>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
+    <tbody>{_.map(data, (value, index) => <tr key={index}>
+      {_.map(cols, (col, indexValue) => <td key={indexValue}>{value[col]}</td>)}
+    </tr>)}</tbody>
   </>;
 
   return <>
-    <div className="form-group">
-      {label && < div className="float-left p-1">{label}</div>}
-      <table className={`table${dark ? ' table-dark' : ''}`}>
+    {label && < div className="float-left p-1">{label}</div>}
+    <div className="w-100" style={{
+      maxHeight: '500px',
+      overflow: 'auto',
+      display: 'inline-block',
+    }}>
+      <table
+        className={`table${dark ? ' table-dark' : ''}`}>
         {renderCols()}
+        {renderValues()}
       </table>
-
     </div>
   </>;
 };

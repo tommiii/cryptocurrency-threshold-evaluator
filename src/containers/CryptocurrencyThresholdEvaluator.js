@@ -32,7 +32,6 @@ class CryptocurrencyThresholdEvaluator extends React.Component {
       isFetching, isLoaded, tableData, error,
     } = this.props;
     const { crypto: currentCrypto } = this.state;
-    console.log(tableData);
     return <div className="CryptocurrencyThresholdEvaluator">
       <div className="p-3">
         <div className="font-weight-bold text-left mb-5">Cryptocurrency Threshold Evaluator (past 24hrs)</div>
@@ -51,7 +50,7 @@ class CryptocurrencyThresholdEvaluator extends React.Component {
         {isFetching ? <Spinner size={55} message="Loading..." /> : isLoaded && < Table
           dark={true}
           data={tableData}
-          cols={['#', 'Time (5m interval)', 'high', 'low', 'volume']}
+          cols={['close', 'date', 'high', 'low', 'volume']}
         />}
         {error && <span>Error loading data...</span>}
         <div className="text-left">
