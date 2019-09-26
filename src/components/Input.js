@@ -5,7 +5,7 @@ const Input = ({
 }) => {
   return <>
     <div className="form-group">
-      {label && < div className="float-left p-1 font-weight-bold">{label}</div>}
+      {label && < div className="text-left font-weight-bold p-1">{label}</div>}
       <input onChange={({ target: { value: newValue } }) => onChange(newValue)} type={type} className="form-control" />
     </div>
   </>;

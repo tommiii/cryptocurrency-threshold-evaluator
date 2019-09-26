@@ -7,7 +7,7 @@ const Select = ({
   const renderValues = _.map(values, ({ value, key }, index) => <option key={index} value={key}>{value}</option>);
   return <>
     <div className="form-group">
-      {label && < div className="float-left p-1 font-weight-bold">{label}</div>}
+      {label && < div className="text-left font-weight-bold p-1">{label}</div>}
       <select className='custom-select ' onChange={({ target: { value } }) => onChange(value)}>
         {renderValues}
       </select>
