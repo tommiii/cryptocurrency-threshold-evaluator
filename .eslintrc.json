@@ -1,0 +1,82 @@
+{
+  "extends": [
+    "airbnb-base",
+    "react-app",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "settings": {
+    "react": {
+      "version": "16.5.1"
+    }
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-shadow": [
+      "error",
+      {
+        "allow": [
+          "err",
+          "error",
+          "done",
+          "response",
+          "resp"
+        ]
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "import/no-named-default": "off",
+    "class-methods-use-this": "off",
+    "no-underscore-dangle": "off",
+    "arrow-parens": "off",
+    "arrow-body-style": "off",
+    "no-console": "error",
+    "eol-last": [
+      "error",
+      "always"
+    ],
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "never"
+      }
+    ],
+    "no-trailing-spaces": [
+      "error",
+      {
+        "skipBlankLines": true
+      }
+    ],
+    "max-len": [
+      "error",
+      200,
+      {
+        "ignoreComments": true
+      }
+    ],
+    "react/prop-types": [
+      2,
+      {
+        "skipUndeclared": true
+      }
+    ],
+    "react/no-unescaped-entities": "off",
+    "react/display-name": "off",
+    "jsx-a11y/anchor-is-valid": [
+      "0",
+      {}
+    ]
+  }
+}
