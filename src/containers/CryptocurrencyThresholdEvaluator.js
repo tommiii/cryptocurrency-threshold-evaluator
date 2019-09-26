@@ -1,17 +1,32 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React from 'react';
 import { connect } from 'react-redux';
+import Spinner from 'reactjs-simple-spinner';
 import Select from '../components/Select';
 import Input from '../components/Input';
 import Table from '../components/Table';
 import { fetchData } from '../actions';
 
 class CryptocurrencyThresholdEvaluator extends React.Component {
+  state = {
+    crypto: 'LSK',
+    threshold: '',
+  }
+
   componentDidMount() {
     this.props.fetchData();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { crypto, threshold } = this.state;
+    const { crypto: prevCrypto, threshold: prevThreshold } = prevState;
+    if (crypto !== prevCrypto || threshold !== prevThreshold) {
+      this.props.fetchData();
+    }
+  }
+
   render() {
-    console.log(this.props);
+    const { isFetching, isLoaded, tableData } = this.props;
     return <div className="CryptocurrencyThresholdEvaluator">
       <div className="p-3">
         <div className="font-weight-bold text-left mb-5">Cryptocurrency Threshold Evaluator (past 24hrs)</div>
@@ -25,19 +40,19 @@ class CryptocurrencyThresholdEvaluator extends React.Component {
               { value: 'Stratis (STRAT)', key: 'STRAT' },
               { value: 'Bitcoin Cash (BCH)', key: 'BCH' },
             ]}
-            onChange={(value) => { console.log(value); }}
+            onChange={value => { this.setState({ crypto: value }); }}
           />
           <Input
             label="Enter Threshold"
-            onChange={(value) => { console.log(value); }}
+            onChange={value => { this.setState({ threshold: value }); }}
           />
         </div>
-        <Table
+        {isFetching ? <Spinner size="big" message="Loading..." /> : < Table
           dark={true}
           cols={['#', 'Time (5m interval)', 'high', 'low', 'volume']}
-        />
+        />}
         <div className="text-left">
-          <small>API REFERENCE: <a href="https://docs.poloniex.com/#returnchartdata">https://docs.poloniex.com/#returnchartdata</a>
+          <small>API REFERENCE: <a target="_blank" href="https://docs.poloniex.com/#returnchartdata">https://docs.poloniex.com/#returnchartdata</a>
           </small>
         </div>
       </div>
