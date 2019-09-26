@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 const Table = ({
-  label, dark, cols,
+  label, dark, cols, data,
 }) => {
   const renderCols = () => <>
     <thead>
@@ -11,7 +11,28 @@ const Table = ({
       </tr>
     </thead>
   </>;
-
+  const renderValues = () => <>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </>;
 
   return <>
     <div className="form-group">
