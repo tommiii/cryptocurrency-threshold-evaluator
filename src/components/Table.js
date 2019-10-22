@@ -1,5 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
+import styled from 'styled-components';
+
+const TableWrapper = styled.div`
+  height: 100%;
+  overflow: auto;
+  display: inline-block;
+`;
 
 const Table = ({
   label, dark, cols, data,
@@ -20,17 +27,13 @@ const Table = ({
 
   return <>
     {label && < div className="float-left p-1">{label}</div>}
-    <div className="w-100" style={{
-      maxHeight: '500px',
-      overflow: 'auto',
-      display: 'inline-block',
-    }}>
+    <TableWrapper className="w-100">
       <table
         className={`table${dark ? ' table-dark' : ''}`}>
         {renderCols()}
         {renderValues()}
       </table>
-    </div>
+    </TableWrapper>
   </>;
 };
 

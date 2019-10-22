@@ -1,12 +1,25 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React from 'react';
 import { connect } from 'react-redux';
-import Spinner from 'reactjs-simple-spinner';
+import styled from 'styled-components';
+import Loading from '../components/Loading';
 import Select from '../components/Select';
 import Table from '../components/Table';
-import { fetchData } from '../actions';
-import { CURRENCY_PAIR_VALUES, PERIOD_VALUES } from '../constants';
+import { CURRENCY_PAIR_VALUES, PERIOD_VALUES, DATA_FETCH_REQUEST } from '../constants';
 
+const ContentWrapper = styled.div`
+  height: 500px;
+  ${props => props.isFetching && `&::before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    }`}
+`;
 
 class CryptocurrencyThresholdEvaluator extends React.Component {
   state = {
@@ -16,20 +29,22 @@ class CryptocurrencyThresholdEvaluator extends React.Component {
 
   componentDidMount() {
     const { crypto, period } = this.state;
-    this.props.fetchData({ crypto, period });
+    const { dispatch } = this.props;
+    dispatch({ type: DATA_FETCH_REQUEST, payload: { crypto, period } });
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { crypto, period } = this.state;
     const { crypto: prevCrypto, period: prevPeriod } = prevState;
     if (crypto !== prevCrypto || period !== prevPeriod) {
-      this.props.fetchData({ crypto, period });
+      const { dispatch } = this.props;
+      dispatch({ type: DATA_FETCH_REQUEST, payload: { crypto, period } });
     }
   }
 
   render() {
     const {
-      isFetching, isLoaded, tableData, error,
+      isFetching, tableData, error,
     } = this.props;
     const { crypto: currentCrypto } = this.state;
     return <div className="CryptocurrencyThresholdEvaluator">
@@ -47,13 +62,16 @@ class CryptocurrencyThresholdEvaluator extends React.Component {
             onChange={period => { this.setState({ period }); }}
           />
         </div>
-        {isFetching ? <Spinner size={55} message="Loading..." /> : isLoaded && < Table
-          dark={true}
-          data={tableData}
-          cols={['close', 'date', 'high', 'low', 'volume']}
-        />}
+        <ContentWrapper isFetching={isFetching}>
+          {isFetching && <Loading />}
+          < Table
+            dark={true}
+            data={tableData}
+            cols={['close', 'date', 'high', 'low', 'volume']}
+          />
+        </ContentWrapper>
         {error && <span>Error loading data...</span>}
-        <div className="text-left">
+        <div className="text-left ">
           <small>API REFERENCE: <a target="_blank" href="https://docs.poloniex.com/#returnchartdata">https://docs.poloniex.com/#returnchartdata</a>
           </small>
         </div>
@@ -70,6 +88,5 @@ const mapStateToProps = ({
 });
 
 export default connect(
-  mapStateToProps,
-  { fetchData }
+  mapStateToProps
 )(CryptocurrencyThresholdEvaluator);
